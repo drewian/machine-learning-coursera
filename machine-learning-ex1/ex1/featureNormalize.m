@@ -9,6 +9,7 @@ function [X_norm, mu, sigma] = featureNormalize(X)
 X_norm = X;
 mu = zeros(1, size(X, 2));
 sigma = zeros(1, size(X, 2));
+len = length(X(1, :));
 
 % ====================== YOUR CODE HERE ======================
 % Instructions: First, for each feature dimension, compute the mean
@@ -26,6 +27,11 @@ sigma = zeros(1, size(X, 2));
 % Hint: You might find the 'mean' and 'std' functions useful.
 %       
 
+for iter = 1:len
+	mu(iter) = mean(X(:, iter));
+	sigma(iter) = std(X(:, iter));
+	X_norm(:, iter) = (X(:, iter) .- mu(iter)) ./ sigma(iter);
+end
 
 
 

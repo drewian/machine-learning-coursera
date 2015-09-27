@@ -13,8 +13,14 @@ J = 0;
 % Instructions: Compute the cost of a particular choice of theta
 %               You should set J to the cost.
 
+% fprintf('%f ', X);
+% fprintf('%f ', y);
 
+for iter = 1:m
+	J = J + ((theta' * X(iter, :)') - y(iter, 1))**2;
+end
 
+J = J / (2 * m);
 
 
 % =========================================================================
