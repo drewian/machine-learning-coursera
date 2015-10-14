@@ -21,9 +21,15 @@ grad = zeros(size(theta));
 %
 
 
+J = 1/m * sum((-y) .* log(sigmoid((theta' * X')')) - ...
+	(ones(m, 1) .- y) .* log(ones(m, 1) .- sigmoid(theta' * X')'));
 
 
+dif = 1/m * (sigmoid(theta' * X')' .- y);
 
+for iter = 1:size(theta)
+	grad(iter) = sum(dif .* X(:, iter));
+end
 
 
 
