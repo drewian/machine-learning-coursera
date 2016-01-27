@@ -19,8 +19,6 @@ X = [ones(m, 1) X];
 n = size(X, 2);
 
 all_theta = zeros(num_labels, n);
-all_theta(1)'
-num_labels
 % ====================== YOUR CODE HERE ======================
 % Instructions: You should complete the following code to train num_labels
 %               logistic regression classifiers with regularization
@@ -57,8 +55,6 @@ for i = 1:num_labels
 	initial_theta = zeros(n, 1);
 	[theta] = fmincg(@(t)(lrCostFunction(t, X, (y == i), lambda)), ...
 				initial_theta, options);
-	size(all_theta(i))
-	size(theta')
 	all_theta(i, :) = theta';
 end
 
