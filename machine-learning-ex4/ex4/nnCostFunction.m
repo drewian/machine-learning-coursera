@@ -62,22 +62,33 @@ Theta2_grad = zeros(size(Theta2));
 %               and Theta2_grad from Part 2.
 %
 
+acc_grad1 = zeros(size(Theta1));
+acc_grad2 = zeros(size(Theta2));
 
+for t = 1:m
+	% forward propagation.
+	y_logical = (1:num_labels) == y(t);
+	y_logical = y_logical';
+	a1 = [1; X(t, :)'];
+	z2 = Theta1 * a1;
+	a2 = sigmoid(z2);
+	a2 = [1; a2];
+	a3 = sigmoid(Theta2 * a2);
+	% compute cost function here:
+	J = J + sum(y_logical .* log(a3) + (1 - y_logical) .* log(1 - a3));
+	% backprop:
+	delta3 = a3 - y_logical;
+	delta2 = Theta2' * delta3 .* [1; sigmoidGradient(z2)];
+	delta2 = delta2(2:end);
+	acc_grad2 = acc_grad2 + delta3 * a2';
+	acc_grad1 = acc_grad1 + delta2 * a1';
+end
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+Theta1(:, 1) = 0;
+Theta2(:, 1) = 0;
+Theta1_grad = 1/m * acc_grad1 + lambda/m * Theta1;
+Theta2_grad = 1/m * acc_grad2 + lambda/m * Theta2;
+J = -1/m * J + lambda/(2*m) * (sum(Theta2(:)) + sum(Theta1(:)));
 
 
 % -------------------------------------------------------------
